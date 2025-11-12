@@ -1,0 +1,147 @@
+{
+    "id": 460,
+    "annotations": [
+      {
+        "id": 3,
+        "completed_by": 1,
+        "result": [
+          {
+            "original_width": 1920,
+            "original_height": 1080,
+            "image_rotation": 0,
+            "value": {
+              "x": 39.0501968503937,
+              "y": 79.39632545931758,
+              "width": 5.905511811023622,
+              "height": 8.530183727034128,
+              "rotation": 0,
+              "rectanglelabels": [
+                "Bee"
+              ]
+            },
+            "id": "4dLkLWHyDm",
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual"
+          },
+          {
+            "original_width": 1920,
+            "original_height": 1080,
+            "image_rotation": 0,
+            "value": {
+              "x": 28.494094488188974,
+              "y": 46.194225721784775,
+              "width": 3.1742125984252,
+              "height": 12.86089238845144,
+              "rotation": 0,
+              "rectanglelabels": [
+                "Bee"
+              ]
+            },
+            "id": "XzSoIWSgWy",
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual"
+          },
+          {
+            "original_width": 1920,
+            "original_height": 1080,
+            "image_rotation": 0,
+            "value": {
+              "x": 23.843503937007874,
+              "y": 65.09186351706036,
+              "width": 4.429133858267715,
+              "height": 9.055118110236236,
+              "rotation": 0,
+              "rectanglelabels": [
+                "Bee"
+              ]
+            },
+            "id": "ApjUP-gIWC",
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual"
+          },
+          {
+            "original_width": 1920,
+            "original_height": 1080,
+            "image_rotation": 0,
+            "value": {
+              "x": 28.715551181102363,
+              "y": 71.5223097112861,
+              "width": 3.690944881889763,
+              "height": 14.173228346456682,
+              "rotation": 0,
+              "rectanglelabels": [
+                "Bee"
+              ]
+            },
+            "id": "4IFU1pmdVd",
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual"
+          },
+          {
+            "original_width": 1920,
+            "original_height": 1080,
+            "image_rotation": 0,
+            "value": {
+              "x": 23.474409448818896,
+              "y": 75.06561679790026,
+              "width": 3.690944881889763,
+              "height": 10.629921259842519,
+              "rotation": 0,
+              "rectanglelabels": [
+                "Bee"
+              ]
+            },
+            "id": "7Umnwb9X-G",
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual"
+          }
+        ],
+        "was_cancelled": false,
+        "ground_truth": false,
+        "created_at": "2025-10-16T00:36:01.060279Z",
+        "updated_at": "2025-10-16T00:36:01.060291Z",
+        "draft_created_at": "2025-10-16T00:35:53.270131Z",
+        "lead_time": 17.472,
+        "prediction": {},
+        "result_count": 5,
+        "unique_id": "1fbadcbb-2bf9-4ede-9665-69ee5058b148",
+        "import_id": null,
+        "last_action": null,
+        "bulk_created": false,
+        "task": 460,
+        "project": 6,
+        "updated_by": 1,
+        "parent_prediction": null,
+        "parent_annotation": null,
+        "last_created_by": null
+      }
+    ],
+    "drafts": [],
+    "predictions": [],
+    "data": {
+      "image": "/data/local-files/?d=bee_images/RO3_1_images/RO3_1_frame_0.jpg"
+    },
+    "meta": {},
+    "created_at": "2025-10-16T00:35:31.662874Z",
+    "updated_at": "2025-10-16T00:36:01.089272Z",
+    "inner_id": 1,
+    "total_annotations": 1,
+    "cancelled_annotations": 0,
+    "total_predictions": 0,
+    "comment_count": 0,
+    "unresolved_comment_count": 0,
+    "last_comment_updated_at": null,
+    "project": 6,
+    "updated_by": 1,
+    "comment_authors": []
+}
