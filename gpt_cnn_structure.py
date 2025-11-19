@@ -4,6 +4,14 @@ from tensorflow.keras.layers import (
     LeakyReLU, MaxPooling2D, Reshape
 )
 from tensorflow.keras.models import Model
+from pycocotools.coco import COCO
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import cv2
+
+from helper_functions import *
+
 
 def build_yolo_like_model(
     input_shape=(416, 416, 3),
@@ -95,3 +103,71 @@ model.compile(
     optimizer='adam',
     loss=yolo_loss
 )
+
+
+# # Initialize coco class by providing path to annotations
+# coco = COCO('coco_datasets/image_info_test2017/annotations/image_info_test2017.json')
+
+# Parse annotations
+#   Build a list with each item being a 2-Tuple of the form (Image_path, annotations)
+#   So, list = [(image_path_1, annotations_1), (image_path_2, annotations_2), (image_path_2, annotations_2), ... ]
+#       Here, each annotation object should be of the form = [x_min, y_min, x_max, y_max, class_id]
+from pycocotools.coco import COCO
+import os
+
+# def build_dataset_index(images_dir, ann_file, category_map=None, skip_crowd=True):
+#     coco = COCO(ann_file)
+#     img_ids = coco.getImgIds()
+#     dataset_index = []
+
+#     for img_id in img_ids:
+#         img_info = coco.loadImgs(img_id)[0]
+#         file_name = img_info['file_name']
+#         image_path = os.path.join(images_dir, file_name)
+
+#         ann_ids = coco.getAnnIds(imgIds=img_id, iscrowd=None)
+#         anns = coco.loadAnns(ann_ids)
+
+#         boxes = []
+#         for a in anns:
+#             if skip_crowd and a.get('iscrowd', 0) == 1:
+#                 continue
+#             x, y, w, h = a['bbox']                 # COCO bbox: x,y,w,h (pixels)
+#             x1, y1, x2, y2 = x, y, x + w, y + h
+#             coco_cat_id = a['category_id']
+#             # Map COCO category ids to zero-based contiguous indices if provided
+#             class_id = category_map[coco_cat_id] if category_map is not None else coco_cat_id
+#             boxes.append([x1, y1, x2, y2, class_id])
+
+#         # only keep images that exist and have at least one box (optional)
+#         if os.path.exists(image_path) and len(boxes) > 0:
+#             dataset_index.append((image_path, boxes))
+
+#     return dataset_index
+
+# COCO full set K for category_map = 80
+training_dataset_index = build_dataset_index('coco_datasets/train2017/train2017', 'coco_datasets/annotations_trainval2017/annotations/instances_train2017.json') 
+                                            #  ,category_map=80, skip_crowd=False)
+# for img_id in img_ids:
+#     img_info = coco.loadImgs(img_id)[0]
+#     ann_ids = coco.getAnnIds(imgIds=img_id, iscrowd=None)
+#     anns = coco.loadAnns(ann_ids)
+#     boxes = []
+#     for a in anns:
+#         x,y,w,h = a['bbox']
+#         boxes.append([x, y, x+w, y+h, category_map[a['category_id']]])
+#     dataset_index.append((image_path, boxes))
+print("Length of training dataset index =", len(training_dataset_index))
+
+# Visualize data
+# visualize_dataset_index(training_dataset_index)
+
+
+
+# Fit model to training data
+# model.fit(
+#     train_dataset,
+#     validation_data = val_dataset,
+#     epochs = 10,
+#     callbacks=[tf.keras.callbacks.ModelCheckpoint(...), tf.keras.callbacks.TensorBoard(...)]
+# )
