@@ -9,6 +9,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+import json
 
 from helper_functions import *
 
@@ -112,8 +113,7 @@ model.compile(
 #   Build a list with each item being a 2-Tuple of the form (Image_path, annotations)
 #   So, list = [(image_path_1, annotations_1), (image_path_2, annotations_2), (image_path_2, annotations_2), ... ]
 #       Here, each annotation object should be of the form = [x_min, y_min, x_max, y_max, class_id]
-from pycocotools.coco import COCO
-import os
+
 
 # def build_dataset_index(images_dir, ann_file, category_map=None, skip_crowd=True):
 #     coco = COCO(ann_file)
@@ -145,34 +145,48 @@ import os
 
 #     return dataset_index
 
-training_folder = '../coco_datasets/train2017/train2017'
-training_annotations = '../coco_datasets/annotations_trainval2017/annotations/instances_train2017.json'
-training_dataset_index = build_dataset_index(training_folder, training_annotations) 
-                                            #  ,category_map=80, skip_crowd=False)
-# for img_id in img_ids:
-#     img_info = coco.loadImgs(img_id)[0]
-#     ann_ids = coco.getAnnIds(imgIds=img_id, iscrowd=None)
-#     anns = coco.loadAnns(ann_ids)
-#     boxes = []
-#     for a in anns:
-#         x,y,w,h = a['bbox']
-#         boxes.append([x, y, x+w, y+h, category_map[a['category_id']]])
-#     dataset_index.append((image_path, boxes))
+# training_folder = '../coco_datasets/train2017/train2017'
+# training_annotations = '../coco_datasets/annotations_trainval2017/annotations/instances_train2017.json'
+
+training_folder = '../CNN/coco_datasets/train2017/train2017'
+training_annotations = '../CNN/coco_datasets/annotations_trainval2017/annotations/instances_train2017.json'
+training_dataset_index = []
+
+if os.path.isfile('training_index.txt'):
+    with open('training_index.txt') as file:
+        training_dataset_index = json.load(file)
+else:
+    training_dataset_index = build_dataset_index(training_folder, training_annotations) 
+    # Write training dataset index to file
+    with open('training_index.txt', 'w') as file:
+        json.dump(training_dataset_index, file)
+
 print("Length of training dataset index =", len(training_dataset_index))
 
 # Visualize data
-# visualize_dataset_index(training_dataset_index)
+visualize_dataset_index(training_dataset_index)
+
+subset_training_index = training_dataset_index[:10]
+# Fit model to training data - Currently throwing a type error
+#   ASK: If x input has to be images (list)
+#        and y target label has to be annotations (list)
+# model.fit(
+#     subset_training_index,
+#     epochs = 10,
+#     # callbacks = [
+#     # tf.keras.callbacks.ModelCheckpoint('checkpoints/yolo_epoch{epoch:02d}.h5', save_best_only=True, monitor='val_loss'),
+#     # tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3, min_lr=1e-7),
+#     # tf.keras.callbacks.TensorBoard(log_dir='logs')
+#     # ]
+# )
 
 
 
-# Fit model to training data
-model.fit(
-    training_dataset_index,
-    # validation_data = val_dataset,
-    epochs = 10,
-    # callbacks = [
-    # tf.keras.callbacks.ModelCheckpoint('checkpoints/yolo_epoch{epoch:02d}.h5', save_best_only=True, monitor='val_loss'),
-    # tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3, min_lr=1e-7),
-    # tf.keras.callbacks.TensorBoard(log_dir='logs')
-    # ]
-)
+# Tasks to complete:
+#   ASK: Make a custom loss function to use when compiling - NO NEED
+#   Download COCO train and test datasets - DONE
+#   Make parser to load JSON data or use COCO's methods
+#       I had chatgpt make me one in helper_function.py = build_dataset_index()
+#   Optional: Visualize data
+#       I had chatgpt make me functions for visualization and box drawing in helper_function.py
+#   Make a dataloader using tensorflow or pytorch - LOOK into
