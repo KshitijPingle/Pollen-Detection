@@ -93,15 +93,15 @@ model.summary()
 
 
 
-def yolo_loss(y_true, y_pred):
-    # Extract masks, box true/pred, class true/pred
-    # Compute each component
-    # return total_loss
-    pass
+# def yolo_loss(y_true, y_pred):
+#     # Extract masks, box true/pred, class true/pred
+#     # Compute each component
+#     # return total_loss
+#     pass
 
 model.compile(
     optimizer='adam',
-    loss=yolo_loss
+    loss=tf.keras.losses.MeanSquaredError()
 )
 
 
@@ -145,8 +145,9 @@ import os
 
 #     return dataset_index
 
-# COCO full set K for category_map = 80
-training_dataset_index = build_dataset_index('coco_datasets/train2017/train2017', 'coco_datasets/annotations_trainval2017/annotations/instances_train2017.json') 
+training_folder = '../coco_datasets/train2017/train2017'
+training_annotations = '../coco_datasets/annotations_trainval2017/annotations/instances_train2017.json'
+training_dataset_index = build_dataset_index(training_folder, training_annotations) 
                                             #  ,category_map=80, skip_crowd=False)
 # for img_id in img_ids:
 #     img_info = coco.loadImgs(img_id)[0]
@@ -165,9 +166,13 @@ print("Length of training dataset index =", len(training_dataset_index))
 
 
 # Fit model to training data
-# model.fit(
-#     train_dataset,
-#     validation_data = val_dataset,
-#     epochs = 10,
-#     callbacks=[tf.keras.callbacks.ModelCheckpoint(...), tf.keras.callbacks.TensorBoard(...)]
-# )
+model.fit(
+    training_dataset_index,
+    # validation_data = val_dataset,
+    epochs = 10,
+    # callbacks = [
+    # tf.keras.callbacks.ModelCheckpoint('checkpoints/yolo_epoch{epoch:02d}.h5', save_best_only=True, monitor='val_loss'),
+    # tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3, min_lr=1e-7),
+    # tf.keras.callbacks.TensorBoard(log_dir='logs')
+    # ]
+)
