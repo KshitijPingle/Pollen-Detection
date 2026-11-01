@@ -148,7 +148,8 @@ Cropped images create a new local coordinate space starting at zero. Transferrin
 
 Let the original image dimensions be W×H (1920×1080). A pollen grain has normalized center coordinates (x, y).  
 
-**Step 1:** Convert normalized pollen center to absolute pixel coordinates:  
+**Step 1:** Convert normalized pollen center to absolute pixel coordinates:
+
 $$
 \begin{aligned}
 X_{abs} &= x \cdot W \\
@@ -156,7 +157,8 @@ Y_{abs} &= y \cdot H
 \end{aligned}
 $$
 
-**Step 2:** Compute local coordinates relative to the bee crop starting at (x_min, y_min):  
+**Step 2:** Compute local coordinates relative to the bee crop starting at ($x_{min}, y_{min}$):
+
 $$
 \begin{aligned}
 X_{local} &= X_{abs} - x_{min} \\
@@ -164,14 +166,16 @@ Y_{local} &= Y_{abs} - y_{min}
 \end{aligned}
 $$
 
-**Step 3:** Re-normalize based on crop dimensions (w_c × h_c):  
+**Step 3:** Re-normalize based on crop dimensions ($w_c \times h_c$):
+
 $$
 \begin{aligned}
 x_{new} &= \frac{X_{local}}{w_c} \\
 y_{new} &= \frac{Y_{local}}{h_c}
 \end{aligned}
 $$
-This transformation is applied to all four vertices of each pollen bounding box, enabling the automatic generation of the Bee-Crop Pollen dataset without any manual re-labeling.  
+
+This transformation is applied to all four vertices of each pollen bounding box, enabling the automatic generation of the Bee-Crop Pollen dataset without any manual re-labeling.
 
 ## Pollen Estimation  
 Pollen is estimated using the **area of predicted pollen bounding boxes** in each cropped bee image. Tracking bounding box area over time serves as a pollen production metric for individual hives. Monitoring drops in this metric can provide early warning of:  
