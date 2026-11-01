@@ -150,20 +150,26 @@ Let the original image dimensions be W×H (1920×1080). A pollen grain has norma
 
 **Step 1:** Convert normalized pollen center to absolute pixel coordinates:  
 $$
-X_{abs} = x * W \\
-Y_{abs} = y * H
+\begin{aligned}
+X_{abs} &= x \cdot W \\
+Y_{abs} &= y \cdot H
+\end{aligned}
 $$
 
 **Step 2:** Compute local coordinates relative to the bee crop starting at (x_min, y_min):  
 $$
-X_{local} = X_{abs} - x_{min} \\
-Y_{local} = Y_{abs} - y_{min}
+\begin{aligned}
+X_{local} &= X_{abs} - x_{min} \\
+Y_{local} &= Y_{abs} - y_{min}
+\end{aligned}
 $$
 
 **Step 3:** Re-normalize based on crop dimensions (w_c × h_c):  
 $$
-x_{new} = \frac{X_{local}}{w_c} \\
-y_{new} = \frac{Y_{local}}{h_c}
+\begin{aligned}
+x_{new} &= \frac{X_{local}}{w_c} \\
+y_{new} &= \frac{Y_{local}}{h_c}
+\end{aligned}
 $$
 This transformation is applied to all four vertices of each pollen bounding box, enabling the automatic generation of the Bee-Crop Pollen dataset without any manual re-labeling.  
 
