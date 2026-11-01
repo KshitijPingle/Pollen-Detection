@@ -63,7 +63,8 @@ The end-to-end inference pipeline operates as follows:
 
 ## Visual Results  
 ### Full Frame Detection  
-| Without Bee Detection | With Bee Detection |  
+| Without Bee Detection | With Bee Detection |
+|---|---|
 | ![Original bees image without object detection bounding boxes](/images/bee_test_image_1.jpg) | ![Bees image with object detection bounding boxes](/images/bee_test_image_1.jpg) |  
 
 ### Bee-Crop Pollen Detection  
@@ -72,15 +73,16 @@ Images on the top row are original cropped bee images before they were passed to
 
 
 ## Hardware & Camera System  
-| Component |	Specification |  
-| Compute |	Raspberry Pi 4B (ARM CPU) |  
-| Camera | Raspberry Pi Camera Module 3 (downward-facing) |  
-| Solar Panel |	50W solar panel |  
-| Battery |	Eco-Worthy 12.8V 20Ah LiFePO4 |  
-| Power Management | Charge controller in 3D-printed weatherproof box |  
-| Enclosure | Two custom 3D-printed weatherproof boxes |  
-| Mounting | Strapped to front face of beehive, camera angled downward |  
-| Camera Height |	Fixed at 11.5 inches above landing pad |  
+| Component |	Specification |
+|---|---|
+| Compute |	Raspberry Pi 4B (ARM CPU) |
+| Camera | Raspberry Pi Camera Module 3 (downward-facing) | 
+| Solar Panel |	50W solar panel |
+| Battery |	Eco-Worthy 12.8V 20Ah LiFePO4 |
+| Power Management | Charge controller in 3D-printed weatherproof box |
+| Enclosure | Two custom 3D-printed weatherproof boxes |
+| Mounting | Strapped to front face of beehive, camera angled downward |
+| Camera Height |	Fixed at 11.5 inches above landing pad |
 
 The camera height of **11.5 inches** is maintained precisely across deployments — this distance is critical for maintaining model generalizability and protecting the accuracy of the pollen area estimation calculation.  
 
@@ -95,10 +97,11 @@ The system was deployed 24/7 on active beehives at the CSUF U-ACRE research apia
 
 
 ## Dataset & Labelling  
-| Dataset	| Images | Resolution	| Purpose |  
-| Bee Detection	| 1,002 |	1920×1080	| Stage 1 bee detection |  
-| Pollen Detection (full frame)	| 970 |	1920×1080 |	Baseline pollen model |  
-| Bee-Crop Pollen Detection |	1,446 |	640×640 |	Stage 2 pollen detection on crops |  
+| Dataset	| Images | Resolution	| Purpose |
+|---|---|---|---|
+| Bee Detection	| 1,002 |	1920×1080	| Stage 1 bee detection |
+| Pollen Detection (full frame)	| 970 |	1920×1080 |	Baseline pollen model |
+| Bee-Crop Pollen Detection |	1,446 |	640×640 |	Stage 2 pollen detection on crops | 
 
 - **Labeling Tool:** Label Studio (traditional bounding boxes, not oriented bounding boxes)  
 - **Interactive Labeling:** Label Studio's ML Backend was connected to incrementally trained model checkpoints, enabling on-the-fly label suggestions that accelerated annotation as model performance improved  
@@ -169,37 +172,44 @@ Placing newly emerging or weakened hives under pollen-collection monitoring can 
 ## Model Performance  
 ### Stage 1 - Bee Detection Model  
 Trained on 1,002 images at 1920×1080 | Batch size: 4 | Epochs: 50 | Split: 80/10/10  
-| Metric | Train | Val (Final) | Test (Unseen) |  
-| Precision |	0.939 |	0.820 |	0.775 |  
-| Recall | 0.974 | 0.690 | 0.710 |  
-| mAP@50 | 0.987 | 0.757 | 0.764 |  
-| mAP@50-95	| 0.738 |	0.330	| 0.371 |  
+
+| Metric | Train | Val (Final) | Test (Unseen) |
+|---|---|---|---|
+| Precision |	0.939 |	0.820 |	0.775 |
+| Recall | 0.974 | 0.690 | 0.710 |
+| mAP@50 | 0.987 | 0.757 | 0.764 |
+| mAP@50-95	| 0.738 |	0.330	| 0.371 |
 All metrics were within ~20% between train and test sets, suggesting usable generalization without severe overfitting.  
 
 ### Baseline Pollen Model (Full Frame - Demonstrates Bottleneck  
 Trained on 970 images at 1920×1080 | Batch size: 4 | Epochs: 50 | Split: 80/10/10  
-| Metric | Train | Val (Final) | Test (Unseen) |  
-| Precision |	0.853 |	0.405 |	0.513 |  
-| Recall | 0.910 | 0.225 | 0.273 |  
-| mAP@50 | 0.922 | 0.180 | 0.260 |  
-| mAP@50-95	| 0.411 |	0.036	| 0.061 | 
+
+| Metric | Train | Val (Final) | Test (Unseen) |
+|---|---|---|---|
+| Precision |	0.853 |	0.405 |	0.513 |
+| Recall | 0.910 | 0.225 | 0.273 |
+| mAP@50 | 0.922 | 0.180 | 0.260 |
+| mAP@50-95	| 0.411 |	0.036	| 0.061 |
 The >30% gap between train and test metrics, combined with a test mAP@50 of only 0.260, confirms the **Spatial Resolution Bottleneck**. The model fails not from a lack of learned features, but from the feature map downsampling discarding critical spatial information about tiny pollen grains.  
 **Note:** These above metrics show the performance of the initial model which was leter replaced by the model in Stage 2.  
 
 ### Stage 2 - Bee-Crop Pollen Detection Model  
 Trained on 1,446 cropped bee images at 640×640 | Batch size: 4 | Epochs: 50 | Split: 80/10/10
-| Metric | Train | Val (Final) | Test (Unseen) |  
-| Precision |	0.949 |	0.939 |	0.888 |  
-| Recall | 0.897 | 0.887 | **0.892** |  
-| mAP@50 | 0.956 | 0.943 | **0.931** |  
-| mAP@50-95	| 0.454 |	0.452	| 0.449 | 
+
+| Metric | Train | Val (Final) | Test (Unseen) |
+|---|---|---|---|
+| Precision |	0.949 |	0.939 |	0.888 |
+| Recall | 0.897 | 0.887 | **0.892** |
+| mAP@50 | 0.956 | 0.943 | **0.931** |
+| mAP@50-95	| 0.454 |	0.452	| 0.449 
 Agent-Centric Cropping boosted mAP@50 from **0.260 → 0.931** and Recall from **0.273 → 0.892** on unseen test data. All test metrics closely match train/val metrics, making this the most generalizable model in the pipeline.  
 
 ### Pipeline Summary  
-| Stage	| Model |	mAP@50 (Test) |	Notes |  
-| Stage 1	| Bee Detection	| 0.764	| Defines Dynamic Regions of Interest |  
-| Baseline | Full-Frame Pollen | 0.260 | Fails due to Spatial Resolution Bottleneck |  
-| Stage 2	| Bee-Crop Pollen	| 0.931	| 23× information density increase via cropping |  
+| Stage	| Model |	mAP@50 (Test) |	Notes |
+|---|---|---|---|
+| Stage 1	| Bee Detection	| 0.764	| Defines Dynamic Regions of Interest |
+| Baseline | Full-Frame Pollen | 0.260 | Fails due to Spatial Resolution Bottleneck | 
+| Stage 2	| Bee-Crop Pollen	| 0.931	| 23× information density increase via cropping | 
 Note: This pipeline was validated as an automated offline inference system (video → Dropbox → inference on a secondary computer). Real-time optimizations such as model quantization for the Raspberry Pi 4B were not implemented within the project timeline and are considered as an upcoming future work.  
 
 
@@ -244,6 +254,6 @@ Over two years at the CSUF U-ACRE research apiary, I maintained active hands-on 
 
 ---
 
-Developed at California State University, Fullerton | June 2024 – May 2026 Affiliated with U-ACRE (Year 1) and UROC (Year 2)  
+Developed at California State University, Fullerton | June 2024 – May 2026 Affiliated with U-ACRE (Year 1 & 2) and UROC (Year 2)  
 
 ---
