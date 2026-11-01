@@ -20,6 +20,7 @@
 - Model Performance
 - Tech Stack
 - Future Work
+- About the Researcher
 - Acknowledgments
 - Publication
 
@@ -48,7 +49,7 @@ Previous pollen monitoring research has experimented with two main approaches, b
 
 
 ## Detection Pipeline  
-*Insert Pipeline Diagram here later*  
+![Final Detection Pipeline](/images/Final_Pollen_Estimation_Pipeline.png)
 (Fig. 3 from paper: Record Videos → Extract Images → Detect Bees → Crop Bee Images → Detect Pollen → Estimate Pollen)  
 
 The end-to-end inference pipeline operates as follows:  
@@ -63,11 +64,11 @@ The end-to-end inference pipeline operates as follows:
 ## Visual Results  
 ### Full Frame Detection  
 | Without Bee Detection | With Bee Detection |  
-| *Insert images here* | *Insert images here* |  
+| ![Original bees image without object detection bounding boxes](/images/bee_test_image_1.jpg) | ![Bees image with object detection bounding boxes](/images/bee_test_image_1.jpg) |  
 
 ### Bee-Crop Pollen Detection  
-| Cropped Bees Without Pollen Detection | Cropped Bees with Pollen Detection |  
-| *Insert images here* | *Insert images here* |  
+![Comparison of cropped bee images before and after being passes through the bee-crop pollen detection model](/images/cropped_bee_images.jpg)  
+Images on the top row are original cropped bee images before they were passed to the bee-crop pollen detection model. Images on row are cropped bee images after the bee-crop pollen detection model has drawn bounding boxes over them. **Note:** Only the last image has pollen, so it is the only one with bounding boxes.
 
 
 ## Hardware & Camera System  
@@ -220,6 +221,11 @@ Note: This pipeline was validated as an automated offline inference system (vide
 - Link pollen collection results with weighed pollen obtained from **pollen traps** to validate estimation accuracy
   - I really wanted this to be included, but unfortunately, my research fellowship had ended because I graduated before I could collect enough data to link visual data with weight data.  
 - Deploy and test the system across multiple apiaries beyond the single CSUF research apiary to better assess model generalizability
+
+
+## About the Researcher  
+![Kshitij Pingle in a bee suit holding a frame of pollen](/images/me_with_pollen_frame.jpeg)
+Over two years at the CSUF U-ACRE research apiary, I maintained active hands-on involvement with the beehives that made this research possible. Beyond developing the computer vision pipeline, I learned beekeeping under Dr. Sara Johnson, regularly suited up to attach and remove the camera system, and helped care for the colonies whose health this project was designed to protect. That direct connection between the fieldwork and the machine learning is what makes this project meaningful to me.
 
 
 ## Acknowledgements  
