@@ -68,7 +68,7 @@ The end-to-end inference pipeline operates as follows:
 | ![Original bees image without object detection bounding boxes](/images/bee_test_image_1.jpg) | ![Bees image with object detection bounding boxes](/images/bee_test_image_1.jpg) |  
 
 ### Bee-Crop Pollen Detection  
-![Comparison of cropped bee images before and after being passes through the bee-crop pollen detection model](/images/cropped_bee_images.jpg)  
+<img src="images/cropped_bee_images.jpg" width="600">  
 Images on the top row are original cropped bee images before they were passed to the bee-crop pollen detection model. Images on row are cropped bee images after the bee-crop pollen detection model has drawn bounding boxes over them. **Note:** Only the last image has pollen, so it is the only one with bounding boxes.
 
 
@@ -147,17 +147,22 @@ Cropped images create a new local coordinate space starting at zero. Transferrin
 Let the original image dimensions be W×H (1920×1080). A pollen grain has normalized center coordinates (x, y).  
 
 **Step 1:** Convert normalized pollen center to absolute pixel coordinates:  
-$$X_abs = x * W  
-$$Y_abs = y * H  
+$$
+X_abs = x * W \\
+Y_abs = y * H  
+$$
 
 **Step 2:** Compute local coordinates relative to the bee crop starting at (x_min, y_min):  
-$$X_local = X_abs - x_min  
-$$Y_local = Y_abs - y_min  
+$$
+X_local = X_abs - x_min \\
+Y_local = Y_abs - y_min  
+$$
 
 **Step 3:** Re-normalize based on crop dimensions (w_c × h_c):  
-$$x_new = X_local / w_c  
-$$y_new = Y_local / h_c  
-
+$$
+x_new = X_local / w_c \\
+y_new = Y_local / h_c   
+$$
 This transformation is applied to all four vertices of each pollen bounding box, enabling the automatic generation of the Bee-Crop Pollen dataset without any manual re-labeling.  
 
 ## Pollen Estimation  
@@ -179,6 +184,7 @@ Trained on 1,002 images at 1920×1080 | Batch size: 4 | Epochs: 50 | Split: 80/1
 | Recall | 0.974 | 0.690 | 0.710 |
 | mAP@50 | 0.987 | 0.757 | 0.764 |
 | mAP@50-95	| 0.738 |	0.330	| 0.371 |
+
 All metrics were within ~20% between train and test sets, suggesting usable generalization without severe overfitting.  
 
 ### Baseline Pollen Model (Full Frame - Demonstrates Bottleneck  
@@ -190,6 +196,7 @@ Trained on 970 images at 1920×1080 | Batch size: 4 | Epochs: 50 | Split: 80/10/
 | Recall | 0.910 | 0.225 | 0.273 |
 | mAP@50 | 0.922 | 0.180 | 0.260 |
 | mAP@50-95	| 0.411 |	0.036	| 0.061 |
+
 The >30% gap between train and test metrics, combined with a test mAP@50 of only 0.260, confirms the **Spatial Resolution Bottleneck**. The model fails not from a lack of learned features, but from the feature map downsampling discarding critical spatial information about tiny pollen grains.  
 **Note:** These above metrics show the performance of the initial model which was leter replaced by the model in Stage 2.  
 
@@ -201,15 +208,17 @@ Trained on 1,446 cropped bee images at 640×640 | Batch size: 4 | Epochs: 50 | S
 | Precision |	0.949 |	0.939 |	0.888 |
 | Recall | 0.897 | 0.887 | **0.892** |
 | mAP@50 | 0.956 | 0.943 | **0.931** |
-| mAP@50-95	| 0.454 |	0.452	| 0.449 
+| mAP@50-95	| 0.454 |	0.452	| 0.449 |
+
 Agent-Centric Cropping boosted mAP@50 from **0.260 → 0.931** and Recall from **0.273 → 0.892** on unseen test data. All test metrics closely match train/val metrics, making this the most generalizable model in the pipeline.  
 
 ### Pipeline Summary  
 | Stage	| Model |	mAP@50 (Test) |	Notes |
 |---|---|---|---|
 | Stage 1	| Bee Detection	| 0.764	| Defines Dynamic Regions of Interest |
-| Baseline | Full-Frame Pollen | 0.260 | Fails due to Spatial Resolution Bottleneck | 
-| Stage 2	| Bee-Crop Pollen	| 0.931	| 23× information density increase via cropping | 
+| Baseline | Full-Frame Pollen | 0.260 | Fails due to Spatial Resolution Bottleneck |
+| Stage 2	| Bee-Crop Pollen	| 0.931	| 23× information density increase via cropping |
+
 Note: This pipeline was validated as an automated offline inference system (video → Dropbox → inference on a secondary computer). Real-time optimizations such as model quantization for the Raspberry Pi 4B were not implemented within the project timeline and are considered as an upcoming future work.  
 
 
@@ -234,7 +243,9 @@ Note: This pipeline was validated as an automated offline inference system (vide
 
 
 ## About the Researcher  
-![Kshitij Pingle in a bee suit holding a frame of pollen](/images/me_with_pollen_frame.jpeg)
+<div align=center>
+  <img src="images/me_with_pollen_frame.jpeg" width="400">
+</div>
 Over two years at the CSUF U-ACRE research apiary, I maintained active hands-on involvement with the beehives that made this research possible. Beyond developing the computer vision pipeline, I learned beekeeping under Dr. Sara Johnson, regularly suited up to attach and remove the camera system, and helped care for the colonies whose health this project was designed to protect. That direct connection between the fieldwork and the machine learning is what makes this project meaningful to me.
 
 
