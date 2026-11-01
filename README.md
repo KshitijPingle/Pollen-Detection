@@ -63,9 +63,11 @@ The end-to-end inference pipeline operates as follows:
 
 ## Visual Results  
 ### Full Frame Detection  
-| Without Bee Detection | With Bee Detection |
-|---|---|
-| ![Original bees image without object detection bounding boxes](/images/bee_test_image_1.jpg) | ![Bees image with object detection bounding boxes](/images/bee_test_image_1.jpg) |  
+<img src="images/bee_test_image_1.jpg" width="600" />  
+Original image with bees and pollen  
+
+<img src="images/bee_test_image_1_output.jpg" width="600" />  
+Same image after having bee detection model draw bounding boxes on the image  
 
 ### Bee-Crop Pollen Detection  
 <img src="images/cropped_bee_images.jpg" width="600">  
@@ -148,20 +150,20 @@ Let the original image dimensions be W×H (1920×1080). A pollen grain has norma
 
 **Step 1:** Convert normalized pollen center to absolute pixel coordinates:  
 $$
-X_abs = x * W \\
-Y_abs = y * H  
+X_{abs} = x * W \\
+Y_{abs} = y * H
 $$
 
 **Step 2:** Compute local coordinates relative to the bee crop starting at (x_min, y_min):  
 $$
-X_local = X_abs - x_min \\
-Y_local = Y_abs - y_min  
+X_{local} = X_{abs} - x_{min} \\
+Y_{local} = Y_{abs} - y_{min}
 $$
 
 **Step 3:** Re-normalize based on crop dimensions (w_c × h_c):  
 $$
-x_new = X_local / w_c \\
-y_new = Y_local / h_c   
+x_{new} = \frac{X_{local}}{w_c} \\
+y_{new} = \frac{Y_{local}}{h_c}
 $$
 This transformation is applied to all four vertices of each pollen bounding box, enabling the automatic generation of the Bee-Crop Pollen dataset without any manual re-labeling.  
 
