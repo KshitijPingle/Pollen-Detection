@@ -3,26 +3,27 @@
 
 **Awards:** 1st Place (Interdisciplinary) & AI-Enabled Award — 40th CSU Student Research Competition (San Jose State University, competing against 23 universities)  
 
-## Table of Contents  
-- Overview
-- Motivation & Background
-- Related Works
-- Detection Pipeline
-- Visual Results
-- Hardware & Camera System
-- Recording Pipeline
-- Dataset & Labelling
-- The Spatial Resolution Bottleneck
-- Two-Stage Hierarchical Detection Architecture
-- Context-Aware Cropping
-- Coordinate Transform Function
-- Pollen Estimation
-- Model Performance
-- Tech Stack
-- Future Work
-- About the Researcher
-- Acknowledgments
-- Publication
+## Table of Contents
+
+- [Overview](#overview)
+- [Motivation & Background](#motivation--background)
+- [Related Work](#related-work)
+- [Detection Pipeline](#detection-pipeline)
+- [Visual Results](#visual-results)
+- [Hardware & Camera System](#hardware--camera-system)
+- [Recording Pipeline](#recording-pipeline)
+- [Dataset & Labeling](#dataset--labeling)
+- [The Spatial Resolution Bottleneck](#the-spatial-resolution-bottleneck)
+- [Two-Stage Hierarchical Detection Architecture](#two-stage-hierarchical-detection-architecture)
+- [Context-Aware Cropping](#context-aware-cropping)
+- [Coordinate Transform Function](#coordinate-transform-function)
+- [Pollen Estimation](#pollen-estimation)
+- [Model Performance](#model-performance)
+- [Tech Stack](#tech-stack)
+- [Future Work](#future-work)
+- [About the Researcher](#about-the-researcher)
+- [Acknowledgments](#acknowledgments)
+- [Publication](#publication)
 
 
 ## Overview  
